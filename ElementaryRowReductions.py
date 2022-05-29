@@ -47,4 +47,23 @@ class ElemetaryRowReduction:
                         self.__list2[0] = y
                         self.__list2[j] = x
                         break
-                    
+    '''
+    Determine the next pivot position.
+    '''
+    def pivotCheck(self):
+        
+        for i in range(self.__checkedRows, self.__row): 
+            for j in range(self.__column):
+            
+                if self.__list[i][j] != 0:
+                    pos = [i,j]
+                    self.__pivotrowlst.append(pos)
+                    self.__pivotRow = i
+                    self.__pivotColumn = j
+                    self.pivot = self.__list[i][j]
+                    break
+            
+            self.__checkedRows += 1
+            if len(self.__pivotrowlst) >= 1:
+
+                break                
