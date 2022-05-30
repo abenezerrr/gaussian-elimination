@@ -66,4 +66,15 @@ class ElemetaryRowReduction:
             self.__checkedRows += 1
             if len(self.__pivotrowlst) >= 1:
 
-                break                
+                break
+    ''' 
+    Check the consistency of the system.
+    '''         
+    def checkConsistency(self):
+
+        self.isConsistent = True
+        for i in range(len(self.__pivotrowlst)):
+
+            if self.__pivotrowlst[i][1] == (self.__column - 1) :
+                self.isConsistent = False
+                print('             System is inconsistent')       
