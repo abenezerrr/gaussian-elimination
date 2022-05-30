@@ -67,6 +67,29 @@ class ElemetaryRowReduction:
             if len(self.__pivotrowlst) >= 1:
 
                 break
+            
+    '''
+    Make enrties below a pivot zeros.
+    '''
+    def rowReduction(self):
+        
+        for i in range((self.__checkedRows), self.__row):
+
+            self.__pivotRowElements = self.__list[self.__pivotRow]
+            tobeZero = self.__list[i][self.__pivotColumn]
+
+            # only one row reduced at a time
+            if  tobeZero != 0:
+                
+                for j in range(self.__column):
+                    #multiply the the pivot row in the copy list
+                    self.__list2[self.__pivotRow][j] = self.__list[self.__pivotRow][j] * ((-1) * \
+                        (tobeZero / self.pivot ))
+
+                    # add it to the rows below a pivot row
+                    self.__list[i][j] += self.__list2[self.__pivotRow][j]
+                    self.__list3[i][j] += self.__list2[self.__pivotRow][j]
+
     ''' 
     Check the consistency of the system.
     '''         
