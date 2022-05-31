@@ -67,7 +67,7 @@ class ElemetaryRowReduction:
             if len(self.__pivotrowlst) >= 1:
 
                 break
-            
+
     '''
     Make enrties below a pivot zeros.
     '''
@@ -100,4 +100,41 @@ class ElemetaryRowReduction:
 
             if self.__pivotrowlst[i][1] == (self.__column - 1) :
                 self.isConsistent = False
-                print('             System is inconsistent')       
+                print('             System is inconsistent')  
+
+    '''
+    Make pivots zeros and entries above the pivots and below it zeros
+    '''    
+    def backwardPhase(self):
+
+       for k in range(len(self.__pivotrowlst)):
+
+           # back pivot columns and rows
+           self.backPivotRow = self.__pivotrowlst[((len(self.__pivotrowlst) - 1) - k)][0]
+           self.backPivotColumn = self.__pivotrowlst[((len(self.__pivotrowlst) - 1) - k)][1]
+          
+           #back pivot
+           self.backPivot = self.__list[self.backPivotRow][self.backPivotColumn]
+           
+           #scale pivots to 1 if not 1
+           if self.backPivot != 1 :
+            
+               # divide the back pivot row by the back pivot
+               for l in range(self.__column):
+                   self.__list[self.backPivotRow][l] = (self.__list[self.backPivotRow][l]) / \
+                       (self.backPivot)
+                   self.__list3[self.backPivotRow][l] =(self.__list3[self.backPivotRow][l]) / \
+                       (self.backPivot)
+               self.backPivot = self.__list[self.backPivotRow][self.backPivotColumn]
+               
+           for i in range(1, self.__row):
+               backPhaseTobemadeZero = self.__list[(self.backPivotRow - i)][self.backPivotColumn] 
+               
+               if backPhaseTobemadeZero != 0:
+                   for j in range(self.__column):
+                       #multiply the the back pivot row
+                       self.__list3[self.backPivotRow][j] = self.__list[self.backPivotRow][j] * ((-1) * \
+                           backPhaseTobemadeZero / self.backPivot )
+                      
+                       # add it to the rows above a back pivot row
+                       self.__list[(self.backPivotRow - i)][j] += self.__list3[self.backPivotRow][j]
