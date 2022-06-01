@@ -118,7 +118,7 @@ class ElemetaryRowReduction:
            
            #scale pivots to 1 if not 1
            if self.backPivot != 1 :
-            
+
                # divide the back pivot row by the back pivot
                for l in range(self.__column):
                    self.__list[self.backPivotRow][l] = (self.__list[self.backPivotRow][l]) / \
@@ -138,3 +138,29 @@ class ElemetaryRowReduction:
                       
                        # add it to the rows above a back pivot row
                        self.__list[(self.backPivotRow - i)][j] += self.__list3[self.backPivotRow][j]
+    '''
+    Get a reduced Echelon form matrix or an echelon form matrix.
+    '''
+    def operations(self):
+        self.leadingEntry()
+        self.__pivotrowlst= [] #store pivot positions
+        self.__pivotRow = 0
+        self.__PivotColumn = 0
+        self.__checkedRows = 0
+        
+        for i in range(self.__row):
+           self.pivotCheck()
+           self.rowReduction()
+       # print('final list copy is',self.__list2)
+        print('         Echelon Form: ')
+        for j in range(self.__row):
+            print( self.__list[j])
+        #check consistency
+        self.checkConsistency()
+        # backward phase
+        if self.isConsistent:
+            
+            self.backwardPhase()
+            print('     Reduced Echelon Form: ')
+            for k in range(self.__row):
+                print( self.__list[k]) 
